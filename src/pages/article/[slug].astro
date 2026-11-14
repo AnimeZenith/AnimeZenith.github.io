@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { posts } from '../../data/posts.js';
+
+export function getStaticPaths() {
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const related = posts.filter(p => p.category === post.category && p.slug !== post.slug).slice(0, 3);
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.excerpt,
+  image: post.image,
+  datePublished: post.date,
+  dateModified: post.date,
+  author: { '@type': 'Organization', name: post.author },
+  publisher: { '@type': 'Organization', name: 'AnimeUpdates' },
+  mainEntityOfPage: new URL('/article/' + post.slug + '/', Astro.site).href
+};
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://animeupdates.pages.dev/' },
+    { '@type': 'ListItem', position: 2, name: post.category, item: 'https://animeupdates.pages.dev/category/' + post.category.toLowerCase() + '/' },
+    { '@type': 'ListItem', position: 3, name: post.title }
+  ]
+};
+---
+<BaseLayout title={post.title + ' | AnimeUpdates'} description={post.excerpt} image={post.image} type="article">
+  <article class="container article-layout">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href={'/category/' + post.category.toLowerCase() + '/'}>{post.category}</a> / {post.title}</div>
+    <span class="eyebrow">{post.category}</span>
+    <h1>{post.title}</h1>
+    <p class="article-meta">By {post.author} · {post.date} · {post.readTime}</p>
+    <img class="article-cover" src={post.image} alt={post.title} fetchpriority="high" />
+    <div class="article-content">
+      {post.body.map(paragraph => <p>{paragraph}</p>)}
+    </div>
+    <p class="article-meta">Topics: {post.tags.join(', ')}</p>
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </article>
+  {related.length > 0 && <section class="container section"><div class="section-heading"><h2>Related Articles</h2></div><div class="article-grid">{related.map(item => <ArticleCard post={item} />)}</div></section>}
+</BaseLayout>
+

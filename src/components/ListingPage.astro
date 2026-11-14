@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from './ArticleCard.astro';
+const { title, description, posts } = Astro.props;
+---
+<BaseLayout title={title + ' | AnimeUpdates'} description={description}>
+  <section class="page-heading">
+    <div class="container">
+      <span class="eyebrow">AnimeUpdates Editorial</span>
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </div>
+  </section>
+  <section class="container section">
+    <div class="article-grid">
+      {posts.map((post) => <ArticleCard post={post} />)}
+    </div>
+    {posts.length === 0 && <div class="empty-state">No articles have been published in this category yet.</div>}
+  </section>
+</BaseLayout>
+

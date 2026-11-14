@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { posts } from '../data/posts.js';
+const index = posts.map(({ slug, title, category, excerpt, date, image }) => ({ slug, title, category, excerpt, date, image }));
+---
+<BaseLayout title="Search Anime Articles | AnimeUpdates" description="Search anime news, reviews, guides, manga and character articles.">
+  <section class="page-heading"><div class="container"><span class="eyebrow">Discover</span><h1>Search AnimeUpdates</h1><p>Find articles, guides, reviews and anime stories.</p></div></section>
+  <section class="container section">
+    <input id="search-input" class="search-box" type="search" placeholder="Search anime articles..." aria-label="Search articles" />
+    <p id="search-count" class="article-meta">Explore all articles</p>
+    <div id="search-results" class="article-grid"></div>
+    <script type="application/json" id="search-index" set:html={JSON.stringify(index)} />
+    <script>
+      const input = document.querySelector('#search-input');
+      const results = document.querySelector('#search-results');
+      const count = document.querySelector('#search-count');
+      const index = JSON.parse(document.querySelector('#search-index').textContent);
+      function render(query = '') {
+        const q = query.trim().toLowerCase();
+        const found = index.filter(p => [p.title,p.category,p.excerpt].join(' ').toLowerCase().includes(q));
+        count.textContent = found.length + ' article(s) found';
+        results.replaceChildren();
+        found.forEach(post => {
+          const article = document.createElement('article');
+          article.className = 'article-card';
+          const link = document.createElement('a');
+          link.href = '/article/' + post.slug + '/';
+          const img = document.createElement('img');
+          img.src = post.image;
+          img.alt = post.title;
+          img.loading = 'lazy';
+          const body = document.createElement('div');
+          body.className = 'card-body';
+          const category = document.createElement('span');
+          category.className = 'card-category';
+          category.textContent = post.category;
+          const heading = document.createElement('h3');
+          heading.textContent = post.title;
+          const excerpt = document.createElement('p');
+          excerpt.textContent = post.excerpt;
+          body.append(category,heading,excerpt);
+          link.append(img,body);
+          article.append(link);
+          results.append(article);
+        });
+        if (!found.length) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-state';
+          empty.textContent = 'No matching articles found. Try another search.';
+          results.append(empty);
+        }
+      }
+      input.addEventListener('input', () => render(input.value));
+      render();
+    </script>
+  </section>
+</BaseLayout>
+

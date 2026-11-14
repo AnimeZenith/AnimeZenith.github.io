@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { posts, categories } from '../../data/posts.js';
+
+export function getStaticPaths() {
+  return categories.map(category => ({
+    params: { category: category.slug },
+    props: { category }
+  }));
+}
+const { category } = Astro.props;
+const filtered = posts.filter(p => p.category.toLowerCase() === category.name.toLowerCase());
+---
+<BaseLayout title={category.name + ' Articles | AnimeUpdates'} description={category.description}>
+  <section class="page-heading"><div class="container"><span class="eyebrow">Category</span><h1>{category.name}</h1><p>{category.description}</p></div></section>
+  <section class="container section">
+    <div class="article-grid">{filtered.map(post => <ArticleCard post={post} />)}</div>
+  </section>
+</BaseLayout>
+

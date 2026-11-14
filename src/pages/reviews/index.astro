@@ -1,0 +1,6 @@
+---
+import ListingPage from '../../components/ListingPage.astro';
+import { posts } from '../../data/posts.js';
+---
+<ListingPage title="Anime Reviews" description="Explore thoughtful reviews covering anime storytelling, animation and music." posts={posts.filter(p => p.category === 'Reviews')} />
+

@@ -1,0 +1,6 @@
+---
+import ListingPage from '../../components/ListingPage.astro';
+import { posts } from '../../data/posts.js';
+---
+<ListingPage title="Manga" description="Discover manga guides, reading tips and stories from the manga world." posts={posts.filter(p => p.category === 'Manga')} />
+

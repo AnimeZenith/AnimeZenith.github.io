@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { posts, categories } from '../data/posts.js';
+const latest = posts.slice(0, 6);
+---
+<BaseLayout>
+  <div class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">Explore the world of anime</span>
+        <h1>Stories, Reviews & Everything Anime.</h1>
+        <p>Discover anime news, thoughtful reviews, manga stories and helpful guides — all in one place.</p>
+        <a class="primary-button" href="/guides/">Explore Anime Guides →</a>
+      </div>
+    </section>
+  </div>
+  <section class="container section">
+    <div class="section-heading">
+      <div><h2>Explore Categories</h2><p>Find the anime topics you love.</p></div>
+    </div>
+    <div class="category-strip">
+      {categories.map((category) => (
+        <a class="category-tile" href={'/category/' + category.slug + '/'}>
+          <strong>{category.name} →</strong>
+          <small>{category.description}</small>
+        </a>
+      ))}
+    </div>
+  </section>
+  <section class="container section">
+    <div class="section-heading">
+      <div><h2>Latest Articles</h2><p>Fresh stories from AnimeUpdates.</p></div>
+      <a class="text-link" href="/search/">Explore all →</a>
+    </div>
+    <div class="article-grid">
+      {latest.map((post) => <ArticleCard post={post} />)}
+    </div>
+  </section>
+  <section class="container section">
+    <div class="section-heading"><div><h2>Discover More</h2><p>Explore articles across every section.</p></div></div>
+    <div class="category-strip">
+      {categories.map((category) => <a class="category-tile" href={'/' + category.slug + '/'}><strong>{category.name} →</strong><small>Browse the latest {category.name.toLowerCase()} articles.</small></a>)}
+    </div>
+  </section>
+</BaseLayout>
+

@@ -1,0 +1,6 @@
+---
+import ListingPage from '../../components/ListingPage.astro';
+import { posts } from '../../data/posts.js';
+---
+<ListingPage title="Anime Characters" description="Explore character profiles, motivations and storytelling analysis." posts={posts.filter(p => p.category === 'Characters')} />
+

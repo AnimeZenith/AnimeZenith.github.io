@@ -1,0 +1,15 @@
+---
+const { post } = Astro.props;
+---
+<article class="article-card">
+  <a href={'/article/' + post.slug + '/'}>
+    <img src={post.image} alt={post.title} loading="lazy" decoding="async" />
+    <div class="card-body">
+      <span class="card-category">{post.category}</span>
+      <h3>{post.title}</h3>
+      <p>{post.excerpt}</p>
+      <div class="card-meta">{post.date} · {post.readTime}</div>
+    </div>
+  </a>
+</article>
+

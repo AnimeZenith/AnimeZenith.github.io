@@ -1,0 +1,53 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title = 'AnimeUpdates — Anime News, Reviews, Guides & Manga',
+  description = 'Explore anime news, reviews, guides, manga and character features on AnimeUpdates.',
+  image = 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200',
+  type = 'website'
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site || 'https://animeupdates.pages.dev').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'AnimeUpdates',
+  url: 'https://animeupdates.pages.dev/',
+  description: 'Anime news, reviews, guides and manga editorial website.'
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <meta name="description" content={description} />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="AnimeUpdates RSS" href="/rss.xml" />
+  <meta property="og:type" content={type} />
+  <meta property="og:site_name" content="AnimeUpdates" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={image} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+  <meta name="theme-color" content="#7044dc" />
+  <title>{title}</title>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+</head>
+<body>
+  <Header />
+  <main><slot /></main>
+  <Footer />
+</body>
+</html>
+
