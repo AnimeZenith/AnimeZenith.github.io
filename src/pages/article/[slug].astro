@@ -17,22 +17,22 @@ const articleSchema = {
   datePublished: post.date,
   dateModified: post.date,
   author: { '@type': 'Organization', name: post.author },
-  publisher: { '@type': 'Organization', name: 'AnimeUpdates' },
+  publisher: { '@type': 'Organization', name: 'AnimeZenith' },
   mainEntityOfPage: new URL('/article/' + post.slug + '/', Astro.site).href
 };
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://animeupdates.pages.dev/' },
-    { '@type': 'ListItem', position: 2, name: post.category, item: 'https://animeupdates.pages.dev/category/' + post.category.toLowerCase() + '/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://animezenith.pages.dev/' },
+    { '@type': 'ListItem', position: 2, name: post.category, item: 'https://animezenith.pages.dev/category/' + post.category.toLowerCase() + '/' },
     { '@type': 'ListItem', position: 3, name: post.title }
   ]
 };
 ---
-<BaseLayout title={post.title + ' | AnimeUpdates'} description={post.excerpt} image={post.image} type="article">
+<BaseLayout title={post.title + ' | AnimeZenith'} description={post.excerpt} image={post.image} type="article">
   <article class="container article-layout">
-    <div class="breadcrumb"><a href="/Animeupdates/">Home</a> / <a href={'/Animeupdates/category/' + post.category.toLowerCase() + '/'}>{post.category}</a> / {post.title}</div>
+    <div class="breadcrumb"><a href="/animezenith/">Home</a> / <a href={'/animezenith/category/' + post.category.toLowerCase() + '/'}>{post.category}</a> / {post.title}</div>
     <span class="eyebrow">{post.category}</span>
     <h1>{post.title}</h1>
     <p class="article-meta">By {post.author} · {post.date} · {post.readTime}</p>

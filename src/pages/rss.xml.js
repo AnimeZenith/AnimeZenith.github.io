@@ -3,7 +3,7 @@ import { posts } from '../data/posts.js';
 
 export function GET(context) {
   return rss({
-    title: 'AnimeUpdates',
+    title: 'AnimeZenith',
     description: 'Anime news, reviews, guides and manga.',
     site: context.site,
     items: posts.map(post => ({

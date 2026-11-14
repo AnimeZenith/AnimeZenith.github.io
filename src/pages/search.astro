@@ -3,8 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { posts } from '../data/posts.js';
 const index = posts.map(({ slug, title, category, excerpt, date, image }) => ({ slug, title, category, excerpt, date, image }));
 ---
-<BaseLayout title="Search Anime Articles | AnimeUpdates" description="Search anime news, reviews, guides, manga and character articles.">
-  <section class="page-heading"><div class="container"><span class="eyebrow">Discover</span><h1>Search AnimeUpdates</h1><p>Find articles, guides, reviews and anime stories.</p></div></section>
+<BaseLayout title="Search Anime Articles | AnimeZenith" description="Search anime news, reviews, guides, manga and character articles.">
+  <section class="page-heading"><div class="container"><span class="eyebrow">Discover</span><h1>Search AnimeZenith</h1><p>Find articles, guides, reviews and anime stories.</p></div></section>
   <section class="container section">
     <input id="search-input" class="search-box" type="search" placeholder="Search anime articles..." aria-label="Search articles" />
     <p id="search-count" class="article-meta">Explore all articles</p>
