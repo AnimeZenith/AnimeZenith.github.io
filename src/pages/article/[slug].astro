@@ -32,7 +32,7 @@ const breadcrumbSchema = {
 ---
 <BaseLayout title={post.title + ' | AnimeUpdates'} description={post.excerpt} image={post.image} type="article">
   <article class="container article-layout">
-    <div class="breadcrumb"><a href="/">Home</a> / <a href={'/category/' + post.category.toLowerCase() + '/'}>{post.category}</a> / {post.title}</div>
+    <div class="breadcrumb"><a href="/Animeupdates/">Home</a> / <a href={'/Animeupdates/category/' + post.category.toLowerCase() + '/'}>{post.category}</a> / {post.title}</div>
     <span class="eyebrow">{post.category}</span>
     <h1>{post.title}</h1>
     <p class="article-meta">By {post.author} · {post.date} · {post.readTime}</p>
