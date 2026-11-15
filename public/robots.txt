@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://animezenith.pages.dev/sitemap-index.xml
-
+Sitemap: https://animezenith.github.io/sitemap-index.xml
