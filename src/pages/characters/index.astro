@@ -42,12 +42,12 @@ import { characters } from '../../data/characters.js';
 
   <style>
     .char-container {
-      padding: 4rem 0;
+      padding: 3rem 0 5rem 0;
       background: #ffffff;
     }
     .char-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
     .char-header h1 {
       font-size: 2.5rem;
@@ -59,17 +59,17 @@ import { characters } from '../../data/characters.js';
     .char-header p {
       font-size: 1.1rem;
       color: #777286;
-      max-width: 800px;
+      max-width: 700px;
       margin: 0 auto;
       line-height: 1.6;
     }
     .search-wrapper {
-      max-width: 800px;
+      max-width: 600px;
       margin: 0 auto 3rem auto;
     }
     .search-box {
       width: 100%;
-      padding: 1.2rem 1.5rem;
+      padding: 1rem 1.5rem;
       font-size: 1.1rem;
       border: 2px solid #eeeaf5;
       border-radius: 15px;
@@ -84,23 +84,21 @@ import { characters } from '../../data/characters.js';
       box-shadow: 0 10px 40px rgba(112, 68, 220, 0.15);
     }
     
-    /* PERFECT GRID SYSTEM */
+    /* RESPONSIVE GRID: 2 on mobile, 3 on tablet, 4 on laptop */
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr); /* Mobile: 2 cards */
-      gap: 1.2rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
     }
-    
     @media (min-width: 768px) {
       .char-grid {
-        grid-template-columns: repeat(3, 1fr); /* Tablet: 3 cards */
-        gap: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
       }
     }
-    
     @media (min-width: 1024px) {
       .char-grid {
-        grid-template-columns: repeat(4, 1fr); /* Laptop/PC: 4 cards */
+        grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
       }
     }
@@ -121,10 +119,10 @@ import { characters } from '../../data/characters.js';
       border-color: #d1c4f5;
     }
     
-    /* IMAGE FIX */
+    /* PERFECT PORTRAIT IMAGES */
     .char-image-wrapper {
       width: 100%;
-      aspect-ratio: 3 / 4; /* Perfect portrait ratio */
+      aspect-ratio: 3 / 4;
       overflow: hidden;
       position: relative;
       background: #faf9fc;
@@ -133,7 +131,7 @@ import { characters } from '../../data/characters.js';
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center; /* Keeps face in frame */
+      object-position: top center;
       transition: transform 0.5s ease;
     }
     .char-card:hover .char-image-wrapper img {
@@ -150,9 +148,9 @@ import { characters } from '../../data/characters.js';
       color: #7044dc;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       font-size: 0.7rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -166,32 +164,32 @@ import { characters } from '../../data/characters.js';
     }
     .char-role {
       color: #777286;
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
       font-weight: 600;
     }
     .char-desc {
       color: #51495f;
       font-size: 0.85rem;
-      line-height: 1.6;
-      margin-bottom: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
       flex-grow: 1;
       display: -webkit-box;
-      -webkit-line-clamp: 5; /* Limit text to 5 lines */
+      -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
     .char-traits {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.3rem;
     }
     .trait {
       background: #f2edff;
       color: #4f2ca8;
-      padding: 0.3rem 0.7rem;
+      padding: 0.25rem 0.6rem;
       border-radius: 999px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 600;
     }
   </style>
