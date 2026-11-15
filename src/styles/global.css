@@ -42,16 +42,30 @@ a:active, button:active, input[type="submit"]:active { transform: scale(0.96); }
 .search-link { 
   background: #ffffff !important; 
   color: var(--purple) !important; 
-  border: 2px solid var(--purple); 
+  border: none !important; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   padding: 9px 20px !important;
   font-weight: 750;
 }
 .search-link:hover {
   background: var(--purple-light) !important;
+  box-shadow: 0 4px 15px rgba(112, 68, 220, 0.2);
 }
 
 .primary-button { background: var(--purple); color: white !important; padding: 12px 22px; border-radius: 10px; font-size: 16px; font-weight: 700; }
-.hero { margin: 45px auto 65px; min-height: 420px; padding: 65px; border-radius: 25px; overflow: hidden; color: white; background: linear-gradient(100deg,rgba(30,17,57,.94),rgba(67,35,122,.72)),url('https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1600&auto=format&fit=crop&q=85') center/cover; display: flex; align-items: center; }
+
+/* HERO SECTION - ORIGINAL IMAGE, NO PURPLE */
+.hero { 
+  margin: 45px auto 65px; 
+  min-height: 420px; 
+  padding: 65px; 
+  border-radius: 25px; 
+  overflow: hidden; 
+  color: white; 
+  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-qB0tN5q3m3qN.jpg') center/cover; 
+  display: flex; 
+  align-items: center; 
+}
 .hero-content { max-width: 700px; }
 .eyebrow { display: inline-block; background: #eee7ff; color: var(--purple-dark); padding: 8px 14px; border-radius: 50px; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
 .hero .eyebrow { background: rgba(255,255,255,.15); color: white; }
