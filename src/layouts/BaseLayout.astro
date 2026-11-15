@@ -6,16 +6,22 @@ import '../styles/global.css';
 const {
   title = 'AnimeZenith — Anime News, Reviews, Guides & Manga',
   description = 'Explore anime news, reviews, guides, manga and character features on AnimeZenith.',
-  image = 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=1200',
+  image = '/logo.png',
   type = 'website'
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site || 'https://animezenith.github.io').href;
+const siteUrl = Astro.site ? Astro.site.href : 'https://animezenith.github.io/';
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+
+// Makes sure Open Graph image is always an absolute URL (Fix for WhatsApp/Twitter sharing)
+const absoluteImage = new URL(image, siteUrl).href;
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'AnimeZenith',
-  url: 'https://animezenith.github.io/',
+  url: siteUrl,
+  logo: new URL('/logo.png', siteUrl).href,
   description: 'Anime news, reviews, guides and manga editorial website.'
 };
 ---
@@ -29,19 +35,29 @@ const structuredData = {
   <meta name="description" content={description} />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <link rel="canonical" href={canonical} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  
+  <!-- Favicon & Logo -->
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+  
   <link rel="preload" as="image" href="/images/frieren-cover.jpg" fetchpriority="high" />
   <link rel="alternate" type="application/rss+xml" title="AnimeZenith RSS" href="/rss.xml" />
+  
+  <!-- Open Graph Metadata (For WhatsApp, Facebook, Discord) -->
   <meta property="og:type" content={type} />
   <meta property="og:site_name" content="AnimeZenith" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={image} />
+  <meta property="og:image" content={absoluteImage} />
+  <meta property="og:image:alt" content={title} />
+  
+  <!-- Twitter Card Metadata -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={image} />
+  <meta name="twitter:image" content={absoluteImage} />
+  
   <meta name="theme-color" content="#7044dc" />
   <title>{title}</title>
   <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
