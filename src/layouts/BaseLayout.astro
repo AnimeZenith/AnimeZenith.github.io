@@ -10,12 +10,12 @@ const {
   type = 'website'
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site || 'https://animezenith.pages.dev').href;
+const canonical = new URL(Astro.url.pathname, Astro.site || 'https://animezenith.github.io').href;
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'AnimeZenith',
-  url: 'https://animezenith.pages.dev/',
+  url: 'https://animezenith.github.io/',
   description: 'Anime news, reviews, guides and manga editorial website.'
 };
 ---
@@ -24,6 +24,7 @@ const structuredData = {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="fvETlqKu6xDLduAkCk9jmbyK3OHlKOs_M8IhwHnMnME" />
   <meta name="generator" content={Astro.generator} />
   <meta name="description" content={description} />
   <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -50,4 +51,3 @@ const structuredData = {
   <Footer />
 </body>
 </html>
-
