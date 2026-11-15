@@ -62,7 +62,7 @@ a:active, button:active, input[type="submit"]:active { transform: scale(0.96); }
   border-radius: 25px; 
   overflow: hidden; 
   color: white; 
-  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('/images/hero-banner.webp') center/cover; 
+  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('/images/frieren-cover.jpg') center/cover; 
   display: flex; 
   align-items: center; 
 }
