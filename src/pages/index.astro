@@ -34,7 +34,14 @@ const latest = posts.slice(0, 6);
       <a class="text-link" href="/search/">Explore all →</a>
     </div>
     <div class="article-grid">
-      {latest.map((post) => <ArticleCard post={post} />)}
+      {latest.length > 0 ? (
+        latest.map((post) => <ArticleCard post={post} />)
+      ) : (
+        <div style="text-align: center; padding: 3rem; background: #1a1a1a; border-radius: 12px; grid-column: 1 / -1;">
+          <h3 style="color: #fff; margin-bottom: 0.5rem;">No articles yet</h3>
+          <p style="color: #aaa;">Fresh content is on its way. Check back soon or add your first article in <code>src/data/posts.js</code>.</p>
+        </div>
+      )}
     </div>
   </section>
   <section class="container section">
@@ -44,4 +51,3 @@ const latest = posts.slice(0, 6);
     </div>
   </section>
 </BaseLayout>
-
