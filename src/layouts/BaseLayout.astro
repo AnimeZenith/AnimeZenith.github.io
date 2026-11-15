@@ -40,7 +40,7 @@ const structuredData = {
   <link rel="icon" type="image/png" href="/logo.png" />
   <link rel="apple-touch-icon" href="/logo.png" />
   
-  <link rel="preload" as="image" href="/images/frieren-cover.jpg" fetchpriority="high" />
+  {type === 'article' && <link rel="preload" as="image" href={absoluteImage} fetchpriority="high" />}
   <link rel="alternate" type="application/rss+xml" title="AnimeZenith RSS" href="/rss.xml" />
   
   <!-- Open Graph Metadata (For WhatsApp, Facebook, Discord) -->
