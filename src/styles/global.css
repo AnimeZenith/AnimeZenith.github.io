@@ -7,7 +7,7 @@
   --purple: #7044dc;
   --purple-dark: #4f2ca8;
   --purple-light: #f2edff;
-  --muted: #777286;
+  --muted: #595465;
   --border: #eeeaf5;
   --surface: #faf9fc;
 }
@@ -62,7 +62,7 @@ a:active, button:active, input[type="submit"]:active { transform: scale(0.96); }
   border-radius: 25px; 
   overflow: hidden; 
   color: white; 
-  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('https://s4.anilist.co/file/anilistcdn/media/anime/banner/154587-qB0tN5q3m3qN.jpg') center/cover; 
+  background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3)), url('/images/hero-banner.webp') center/cover; 
   display: flex; 
   align-items: center; 
 }
@@ -85,7 +85,7 @@ a:active, button:active, input[type="submit"]:active { transform: scale(0.96); }
 .card-category { font-size: 12px; color: var(--purple); font-weight: 850; text-transform: uppercase; letter-spacing: .9px; }
 .article-card h3 { font-size: 24px; line-height: 1.4; margin: 12px 0; letter-spacing: -.35px; color: #211a32; }
 .article-card p { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 0 0 18px; }
-.card-meta { color: #918a9d; font-size: 14px; }
+.card-meta { color: #6b6678; font-size: 14px; }
 .category-strip { display: grid; grid-template-columns: repeat(5,1fr); gap: 18px; }
 .category-tile { padding: 25px; border: 1px solid var(--border); background: var(--surface); border-radius: 14px; transition: .2s; display: block; }
 .category-tile:hover { border-color: #c8b6f6; background: var(--purple-light); transform: translateY(-3px); }
