@@ -16,7 +16,7 @@ import { characters } from '../../data/characters.js';
 
       <div class="char-grid" id="char-grid">
         {characters.map((char) => (
-          <div class="char-card" data-name={char.name.toLowerCase()} data-anime={char.anime.toLowerCase()}>
+          <a href={'/character/' + char.id + '/'} class="char-card" data-name={char.name.toLowerCase()} data-anime={char.anime.toLowerCase()}>
             <div class="char-image-wrapper">
               <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" />
             </div>
@@ -31,7 +31,7 @@ import { characters } from '../../data/characters.js';
                 ))}
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
       <div id="no-results" style="display: none; text-align: center; padding: 5rem; color: #777286; font-size: 1.2rem; font-weight: 600;">
@@ -84,7 +84,6 @@ import { characters } from '../../data/characters.js';
       box-shadow: 0 10px 40px rgba(112, 68, 220, 0.15);
     }
     
-    /* RESPONSIVE GRID: 2 on mobile, 3 on tablet, 4 on laptop */
     .char-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -112,14 +111,18 @@ import { characters } from '../../data/characters.js';
       display: flex;
       flex-direction: column;
       box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      text-decoration: none;
+      color: inherit;
     }
     .char-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px rgba(112, 68, 220, 0.12);
       border-color: #d1c4f5;
     }
+    .char-card:active {
+      transform: scale(0.98);
+    }
     
-    /* PERFECT PORTRAIT IMAGES */
     .char-image-wrapper {
       width: 100%;
       aspect-ratio: 3 / 4;

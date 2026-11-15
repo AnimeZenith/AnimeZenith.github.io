@@ -1,13 +1,16 @@
+---
+const path = Astro.url.pathname;
+---
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/">Anime<span>Zenith</span>.</a>
     <nav class="nav" aria-label="Main navigation">
-      <a href="/">Home</a>
-      <a href="/news/">News</a>
-      <a href="/reviews/">Reviews</a>
-      <a href="/guides/">Guides</a>
-      <a href="/manga/">Manga</a>
-      <a href="/characters/">Characters</a>
+      <a href="/" class={path === '/' ? 'active' : ''}>Home</a>
+      <a href="/news/" class={path.includes('/news') ? 'active' : ''}>News</a>
+      <a href="/reviews/" class={path.includes('/reviews') ? 'active' : ''}>Reviews</a>
+      <a href="/guides/" class={path.includes('/guides') ? 'active' : ''}>Guides</a>
+      <a href="/manga/" class={path.includes('/manga') ? 'active' : ''}>Manga</a>
+      <a href="/characters/" class={path.includes('/character') ? 'active' : ''}>Characters</a>
       <a class="search-link" href="/search/">Search</a>
     </nav>
   </div>

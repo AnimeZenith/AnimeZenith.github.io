@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { characters } from '../../data/characters.js';
+
+export function getStaticPaths() {
+  return characters.map((char) => ({
+    params: { id: char.id },
+    props: { char },
+  }));
+}
+
+const { char } = Astro.props;
+const title = `${char.name} - ${char.anime} | AnimeZenith`;
+const description = `Learn everything about ${char.name} from ${char.anime}. Role: ${char.role}. Read the full backstory, traits, and character analysis on AnimeZenith.`;
+---
+<BaseLayout title={title} description={description} image={char.image} type="article">
+  <div class="container" style="padding: 4rem 0;">
+    <a href="/characters/" style="color: #7044dc; font-weight: 600; margin-bottom: 2rem; display: inline-block;">&larr; Back to Characters</a>
+    
+    <div class="char-detail-grid">
+      <div class="char-detail-image">
+        <img src={char.image} alt={char.name + ' from ' + char.anime} />
+      </div>
+      <div class="char-detail-content">
+        <span class="char-anime">{char.anime}</span>
+        <h1 class="char-name">{char.name}</h1>
+        <p class="char-role">Role: {char.role}</p>
+        
+        <div class="char-traits" style="margin-bottom: 2rem;">
+          {char.traits.map((t) => (
+            <span class="trait">{t}</span>
+          ))}
+        </div>
+
+        <h2>Backstory & Analysis</h2>
+        <p class="char-desc">{char.description}</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .char-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      background: #ffffff;
+      border-radius: 24px;
+      border: 1px solid #eeeaf5;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+    @media (min-width: 768px) {
+      .char-detail-grid { grid-template-columns: 400px 1fr; padding: 3rem; }
+    }
+    .char-detail-image {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    .char-detail-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+    .char-anime {
+      color: #7044dc;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .char-name {
+      font-size: 3.5rem;
+      color: #211a32;
+      margin: 0 0 1rem 0;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+    .char-role {
+      color: #777286;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      color: #211a32;
+      margin: 2rem 0 1rem 0;
+      border-bottom: 2px solid #eeeaf5;
+      padding-bottom: 0.5rem;
+    }
+    .char-desc {
+      color: #51495f;
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+    .char-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .trait {
+      background: #f2edff;
+      color: #4f2ca8;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  </style>
+</BaseLayout>
