@@ -3,7 +3,7 @@ const path = Astro.url.pathname;
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/">Anime<span>Zenith</span>.</a>
+    <a class="brand" href="/">Anime<span>Zenith</span></a>
     <nav class="nav" aria-label="Main navigation">
       <a href="/" class={path === '/' ? 'active' : ''}>Home</a>
       <a href="/news/" class={path.includes('/news') ? 'active' : ''}>News</a>
