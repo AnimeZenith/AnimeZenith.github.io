@@ -4,32 +4,55 @@ import { characters } from '../../data/characters.js';
 ---
 <BaseLayout title="Anime Characters — AnimeZenith" description="Explore detailed character profiles, backstories and analysis from your favorite anime.">
   <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-    <div class="section-heading" style="text-align: center; margin-bottom: 4rem;">
-      <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #fff;">Anime Characters</h1>
-      <p style="font-size: 1.3rem; color: #aaa; max-width: 700px; margin: 0 auto;">Explore full profiles, backstories, and analysis of your favorite characters from the biggest anime series.</p>
+    <div class="section-heading" style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #211a32;">Anime Characters</h1>
+      <p style="font-size: 1.3rem; color: #777286; max-width: 800px; margin: 0 auto;">Explore full profiles, backstories, and analysis of your favorite characters from the biggest anime series.</p>
     </div>
 
-    {characters.length > 0 ? (
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 3rem;">
-        {characters.map((char) => (
-          <div style="background: #1a1a1a; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" style="width: 100%; height: 400px; object-fit: cover; border-bottom: 4px solid #7044dc;" />
-            <div style="padding: 2.5rem; flex-grow: 1; display: flex; flex-direction: column;">
-              <span style="color: #7044dc; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 0.5rem;">{char.anime}</span>
-              <h2 style="margin: 0 0 0.5rem 0; font-size: 2.5rem; color: #fff; line-height: 1.2;">{char.name}</h2>
-              <p style="color: #ffcc00; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600;">Role: {char.role}</p>
-              <p style="color: #ccc; font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem; flex-grow: 1;">{char.description}</p>
-              <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
-                {char.traits.map((t) => (
-                  <span style="background: rgba(112, 68, 220, 0.15); color: #b0a0ff; border: 1px solid #7044dc; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem; font-weight: 500;">{t}</span>
-                ))}
-              </div>
+    <div style="max-width: 700px; margin: 0 auto 3rem auto;">
+      <input type="text" id="char-search" class="search-box" placeholder="Search characters by name or anime..." />
+    </div>
+
+    <div id="char-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 3rem;">
+      {characters.map((char) => (
+        <div class="char-card" data-name={char.name.toLowerCase()} data-anime={char.anime.toLowerCase()} style="background: #1a1a1a; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" style="width: 100%; height: 480px; object-fit: cover; object-position: top; border-bottom: 4px solid #7044dc;" />
+          <div style="padding: 2.5rem; flex-grow: 1; display: flex; flex-direction: column;">
+            <span style="color: #7044dc; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 0.5rem;">{char.anime}</span>
+            <h2 style="margin: 0 0 0.5rem 0; font-size: 2.5rem; color: #fff; line-height: 1.2;">{char.name}</h2>
+            <p style="color: #ffcc00; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600;">Role: {char.role}</p>
+            <p style="color: #ccc; font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem; flex-grow: 1;">{char.description}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+              {char.traits.map((t) => (
+                <span style="background: rgba(112, 68, 220, 0.15); color: #b0a0ff; border: 1px solid #7044dc; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem; font-weight: 500;">{t}</span>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    ) : (
-      <p style="color: #aaa; text-align: center; padding: 3rem; font-size: 1.2rem;">No characters added yet.</p>
-    )}
+        </div>
+      ))}
+    </div>
+    <div id="no-results" style="display: none; text-align: center; padding: 4rem; color: #777286; font-size: 1.3rem;">No characters found matching your search.</div>
   </div>
+
+  <script>
+    const input = document.getElementById('char-search');
+    const cards = document.querySelectorAll('.char-card');
+    const noResults = document.getElementById('no-results');
+
+    input.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      let visible = 0;
+      cards.forEach((card) => {
+        const name = card.getAttribute('data-name');
+        const anime = card.getAttribute('data-anime');
+        if (name.includes(val) || anime.includes(val)) {
+          card.style.display = 'flex';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+  </script>
 </BaseLayout>
