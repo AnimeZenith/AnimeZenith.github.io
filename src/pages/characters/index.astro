@@ -1,6 +1,37 @@
 ---
-import ListingPage from '../../components/ListingPage.astro';
-import { posts } from '../../data/posts.js';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { characters } from '../../data/characters.js';
 ---
-<ListingPage title="Anime Characters" description="Explore character profiles, motivations and storytelling analysis." posts={posts.filter(p => p.category === 'Characters')} />
+<BaseLayout title="Anime Characters — AnimeZenith" description="Explore character profiles, backstories and analysis from your favorite anime.">
+  <div class="container section" style="padding-top: 3rem;">
+    <div class="section-heading">
+      <div>
+        <h1>Anime Characters</h1>
+        <p>Explore character profiles, backstories and analysis.</p>
+      </div>
+    </div>
 
+    {characters.length > 0 ? (
+      <div class="article-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+        {characters.map((char) => (
+          <div class="category-tile" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+            <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" style="width: 100%; height: 240px; object-fit: cover;" />
+            <div style="padding: 1.25rem;">
+              <span class="eyebrow" style="font-size: 0.75rem;">{char.anime}</span>
+              <h3 style="margin: 0.25rem 0 0.5rem 0; color: #fff;">{char.name}</h3>
+              <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 0.75rem;"><strong>Role:</strong> {char.role}</p>
+              <p style="color: #ccc; font-size: 0.9rem; line-height: 1.5;">{char.description}</p>
+              <div style="margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                {char.traits.map((t) => (
+                  <span style="background: #2a2a2a; color: #b0a0ff; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem;">{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p style="color: #aaa; text-align: center; padding: 3rem;">No characters added yet.</p>
+    )}
+  </div>
+</BaseLayout>
