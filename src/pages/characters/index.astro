@@ -3,36 +3,178 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { characters } from '../../data/characters.js';
 ---
 <BaseLayout title="Anime Characters — AnimeZenith" description="Explore detailed character profiles, backstories and analysis from your favorite anime.">
-  <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-    <div class="section-heading" style="text-align: center; margin-bottom: 2rem;">
-      <h1 style="font-size: 3.5rem; margin-bottom: 1rem; color: #211a32;">Anime Characters</h1>
-      <p style="font-size: 1.3rem; color: #777286; max-width: 800px; margin: 0 auto;">Explore full profiles, backstories, and analysis of your favorite characters from the biggest anime series.</p>
-    </div>
+  <div class="char-container">
+    <div class="container">
+      <div class="char-header">
+        <h1>Anime Characters</h1>
+        <p>Explore full profiles, backstories, and analysis of your favorite characters from the biggest anime series.</p>
+      </div>
 
-    <div style="max-width: 700px; margin: 0 auto 3rem auto;">
-      <input type="text" id="char-search" class="search-box" placeholder="Search characters by name or anime..." />
-    </div>
+      <div class="search-wrapper">
+        <input type="text" id="char-search" class="search-box" placeholder="Search characters by name or anime..." />
+      </div>
 
-    <div id="char-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 3rem;">
-      {characters.map((char) => (
-        <div class="char-card" data-name={char.name.toLowerCase()} data-anime={char.anime.toLowerCase()} style="background: #1a1a1a; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" style="width: 100%; height: 480px; object-fit: cover; object-position: top; border-bottom: 4px solid #7044dc;" />
-          <div style="padding: 2.5rem; flex-grow: 1; display: flex; flex-direction: column;">
-            <span style="color: #7044dc; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; font-size: 1rem; margin-bottom: 0.5rem;">{char.anime}</span>
-            <h2 style="margin: 0 0 0.5rem 0; font-size: 2.5rem; color: #fff; line-height: 1.2;">{char.name}</h2>
-            <p style="color: #ffcc00; font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 600;">Role: {char.role}</p>
-            <p style="color: #ccc; font-size: 1.15rem; line-height: 1.8; margin-bottom: 2rem; flex-grow: 1;">{char.description}</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
-              {char.traits.map((t) => (
-                <span style="background: rgba(112, 68, 220, 0.15); color: #b0a0ff; border: 1px solid #7044dc; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem; font-weight: 500;">{t}</span>
-              ))}
+      <div class="char-grid" id="char-grid">
+        {characters.map((char) => (
+          <div class="char-card" data-name={char.name.toLowerCase()} data-anime={char.anime.toLowerCase()}>
+            <div class="char-image-wrapper">
+              <img src={char.image} alt={char.name + ' from ' + char.anime} loading="lazy" />
+            </div>
+            <div class="char-content">
+              <span class="char-anime">{char.anime}</span>
+              <h2 class="char-name">{char.name}</h2>
+              <p class="char-role">Role: {char.role}</p>
+              <p class="char-desc">{char.description}</p>
+              <div class="char-traits">
+                {char.traits.map((t) => (
+                  <span class="trait">{t}</span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div id="no-results" style="display: none; text-align: center; padding: 5rem; color: #777286; font-size: 1.5rem; font-weight: 600;">
+        No characters found matching your search.
+      </div>
     </div>
-    <div id="no-results" style="display: none; text-align: center; padding: 4rem; color: #777286; font-size: 1.3rem;">No characters found matching your search.</div>
   </div>
+
+  <style>
+    .char-container {
+      padding: 5rem 0;
+      background: #ffffff;
+    }
+    .char-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .char-header h1 {
+      font-size: 3.5rem;
+      color: #211a32;
+      margin-bottom: 1rem;
+      letter-spacing: -1.5px;
+      font-weight: 850;
+    }
+    .char-header p {
+      font-size: 1.25rem;
+      color: #777286;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .search-wrapper {
+      max-width: 800px;
+      margin: 0 auto 5rem auto;
+    }
+    .search-box {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      font-size: 1.2rem;
+      border: 2px solid #eeeaf5;
+      border-radius: 20px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      background: #faf9fc;
+    }
+    .search-box:focus {
+      border-color: #7044dc;
+      background: #ffffff;
+      box-shadow: 0 10px 40px rgba(112, 68, 220, 0.15);
+    }
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+      gap: 3.5rem;
+    }
+    .char-card {
+      background: #ffffff;
+      border-radius: 24px;
+      border: 1px solid #eeeaf5;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    }
+    .char-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px rgba(112, 68, 220, 0.12);
+      border-color: #d1c4f5;
+    }
+    .char-image-wrapper {
+      height: 480px;
+      overflow: hidden;
+      position: relative;
+      background: #faf9fc;
+    }
+    .char-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.6s ease;
+    }
+    .char-card:hover .char-image-wrapper img {
+      transform: scale(1.08);
+    }
+    .char-content {
+      padding: 3rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .char-anime {
+      color: #7044dc;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .char-name {
+      margin: 0 0 0.75rem 0;
+      font-size: 2.5rem;
+      color: #211a32;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      font-weight: 850;
+    }
+    .char-role {
+      color: #777286;
+      font-size: 1.15rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .char-desc {
+      color: #51495f;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      flex-grow: 1;
+    }
+    .char-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .trait {
+      background: #f2edff;
+      color: #4f2ca8;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    @media (max-width: 768px) {
+      .char-grid { grid-template-columns: 1fr; }
+      .char-header h1 { font-size: 2.5rem; }
+      .char-image-wrapper { height: 380px; }
+      .char-content { padding: 2rem; }
+      .char-name { font-size: 2rem; }
+    }
+  </style>
 
   <script>
     const input = document.getElementById('char-search');
