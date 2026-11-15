@@ -2,12 +2,15 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { posts } from '../../data/posts.js';
+import { characters } from '../../data/characters.js';
 
 export function getStaticPaths() {
   return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
 }
 const { post } = Astro.props;
-const related = posts.filter(p => p.category === post.category && p.slug !== post.slug).slice(0, 3);
+const moreArticles = posts.filter(p => p.slug !== post.slug).slice(0, 3);
+const relatedCharacters = characters.filter(c => c.anime === post.anime);
+
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -24,8 +27,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://animezenith.pages.dev/' },
-    { '@type': 'ListItem', position: 2, name: post.category, item: 'https://animezenith.pages.dev/category/' + post.category.toLowerCase() + '/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://animezenith.github.io/' },
+    { '@type': 'ListItem', position: 2, name: post.category, item: 'https://animezenith.github.io/category/' + post.category.toLowerCase() + '/' },
     { '@type': 'ListItem', position: 3, name: post.title }
   ]
 };
@@ -44,6 +47,29 @@ const breadcrumbSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </article>
-  {related.length > 0 && <section class="container section"><div class="section-heading"><h2>Related Articles</h2></div><div class="article-grid">{related.map(item => <ArticleCard post={item} />)}</div></section>}
-</BaseLayout>
 
+  {relatedCharacters.length > 0 && (
+    <section class="container section" style="background: #faf9fc; border-radius: 20px; padding: 3rem;">
+      <div class="section-heading">
+        <div><h2>Characters in {post.anime}</h2><p>Learn more about the characters from this series.</p></div>
+        <a class="text-link" href="/characters/">View all →</a>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+        {relatedCharacters.map(char => (
+          <a href={'/character/' + char.id + '/'} style="display: flex; align-items: center; gap: 1rem; background: white; padding: 1rem; border-radius: 12px; border: 1px solid #eeeaf5; text-decoration: none; color: inherit; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+            <img src={char.image} alt={char.name} style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;" />
+            <div>
+              <strong style="display: block; font-size: 1.1rem; color: #211a32;">{char.name}</strong>
+              <span style="font-size: 0.85rem; color: #777286;">{char.role}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="container section">
+    <div class="section-heading"><h2>Read More Articles</h2><a class="text-link" href="/search/">Explore all →</a></div>
+    <div class="article-grid">{moreArticles.map(item => <ArticleCard post={item} />)}</div>
+  </section>
+</BaseLayout>
